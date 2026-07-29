@@ -528,8 +528,9 @@ header.scrolled {
 }
 
 .btn-neon {
-    color: #f5f5f5;
-    box-shadow: 0 10px 30px -10px rgba(198, 255, 77, .65), inset 0 1px 0 rgba(255, 255, 255, .2);
+   background-color:hsl(103, 100%, 52%);
+   color: #f5f5f5;
+   box-shadow: 0 10px 30px -10px rgba(198, 255, 77, .65), inset 0 1px 0 rgba(255, 255, 255, .2);
 }
 
 .btn-neon:hover {
