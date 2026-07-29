@@ -3,69 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas Oliveira | Land Pages de Alta Conversão</title>
+    <title> Nivora Web | Vitrine Digital de Alta Conversão</title>
+    <meta name="description" content="Sites que vendem por você. Vitrine ao vivo com projetos reais, depoimentos e resultados.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div id="holder"></div>
-    <canvas id="particles"></canvas>
+    <canvas id="glow"></canvas>
 
     <!-- Header -->
     <header id="header">
         <nav class="navbar">
-            <div class="logo-area">
-                <div class="logo-circle"><img class="logo-img" src="img/NicolasPro.png" alt="N" onerror="this.style.display='none'; this.parentElement.textContent='N';"></div>
-                <h1 class="logo-text">Nicolas Oliveira</h1>
-            </div>
-            <button class="hamburger" id="hamburger" aria-label="Abrir menu">
+            <a href="#topo" class="logo-area">
+                <div class="logo-mark"><img class="logo-img" src="/img/logo/Nivora.png" alt="N" onerror="this.style.display='none'; this.parentElement.textContent='N';"></div>
+                <span class="logo-text">Nivora Web<span class="accent-dot"></span></span>
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
             <ul id="nav-menu" class="nav-menu">
-                <li><a href="#sobre">Início</a></li>
+                <li><a href="#topo">Início</a></li>
+                <li><a href="#vitrine">Vitrine</a></li>
                 <li><a href="#sobre-mim">Sobre</a></li>
-                <li><a href="#projetos">Projetos</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#certificados">Certificados</a></li>
-                <li><a href="https://wa.me/5571992733599" target="_blank" class="nav-cta">Contratar</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="https://wa.me/5571992733599" target="_blank" class="nav-cta"><i class="fab fa-whatsapp"></i> Contratar </a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main id="topo">
 
-        <!-- Hero -->
-        <section id="sobre" class="hero">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <div class="hero-badge animate-in">
-                        <span class="status-dot"></span> Desenvolvedor Web
-                    </div>
-                    <h2 class="hero-title animate-in">
-                        <span class="line">Um site à altura</span>
-                        <span class="line name-line">do seu negócio.</span>
-                    </h2>
-                    <p class="hero-conversion animate-in">
-                        Enquanto você não tem um site de alta conversão,<br>seus concorrentes estão fechando os clientes que seriam seus.
-                    </p>
-                   
-                    <div class="cta-buttons animate-in">
-                        <a href="https://wa.me/5571992733599" target="_blank" class="btn btn-primary">
-                            <i class="fab fa-whatsapp"></i><span>Contratar agora</span>
+        <!-- HERO — a vitrine acende -->
+        <section class="hero">
+            <div class="hero-media" aria-hidden="true">
+                <img src="/img/fundo/fundo.png" alt="" class="hero-media-img" loading="eager" fetchpriority="high">
+                <div class="hero-media-scrim"></div>
+            </div>
+            <div class="hero-inner container">
+                <div class="hero-copy">
+
+                    <h1 class="hero-title">
+                        <span class="hl-row"><span class="hl-word">Seu</span> <span class="hl-word">concorrente</span></span>
+                        <span class="hl-row"><span class="hl-word hl-accent">já&nbsp;tem</span> <span class="hl-word hl-accent">vitrine.</span></span>
+                        <span class="hl-row"><span class="hl-word">E o seu</span> <span class="hl-word">negócio?</span></span>
+                    </h1>
+                    <p class="hero-sub">Criamos sites que trabalham como vendedor 24 horas: rápidos, bonitos no celular e feitos pra transformar visita em cliente marcado.</p>
+                    <div class="hero-cta">
+                        <a href="https://wa.me/5571992733599" target="_blank" class="btn btn-neon">
+                            <i class="fab fa-whatsapp"></i><span class="whats">Chamar no WhatsApp</span>
                         </a>
-                        <a href="#projetos" class="btn btn-secondary">
-                            <i class="fas fa-eye"></i><span>Ver Portfólio</span>
+                        <a href="#vitrine" class="btn btn-ghost">
+                            <span>Ver sites reais</span><i class="fas fa-arrow-down-long"></i>
                         </a>
                     </div>
+                    <div class="hero-proof">
+                        <div class="proof-avatars">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Camila R." loading="lazy">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Felipe M." loading="lazy">
+                            <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Rafael S." loading="lazy">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Juliana A." loading="lazy">
+                        </div>
+                        <p><strong>4.8</strong><span class="proof-decimal"></span> de satisfação em <strong class="stat-number" data-count="20"></strong>+ projetos entregues</p>
+                    </div>
+                </div>
+
+                <div class="hero-stage" id="heroStage">
+                    <div class="deck" id="deck">
+                        <article class="panel panel--estetica" data-niche="estetica">
+                            <img src="/img/sites/site2.png" alt="Site Vitta Estética" class="panel-screenshot"
+                                onerror="this.outerHTML='&lt;div class=&quot;panel-screenshot-fallback&quot;&gt;&lt;i class=&quot;fas fa-leaf&quot;&gt;&lt;/i&gt;&lt;/div&gt;'">
+                        </article>
+
+                        <article class="panel panel--clinica" data-niche="clinica">
+                            <img src="/img/sites/SalãoDeBeleza.png" alt="Site MedCare Clínica" class="panel-screenshot"
+                                onerror="this.outerHTML='&lt;div class=&quot;panel-screenshot-fallback&quot;&gt;&lt;i class=&quot;fas fa-stethoscope&quot;&gt;&lt;/i&gt;&lt;/div&gt;'">
+                        </article>
+
+                        <article class="panel panel--salao" data-niche="salao">
+                            <img src="/img/sites/veterinaria.png" alt="Site Studio Bella" class="panel-screenshot"
+                                onerror="this.outerHTML='&lt;div class=&quot;panel-screenshot-fallback&quot;&gt;&lt;i class=&quot;fas fa-cut&quot;&gt;&lt;/i&gt;&lt;/div&gt;'">
+                            <span class="panel-tag">Salão de Beleza</span>
+                        </article>
+                    </div>
+
+                    <div class="toast toast--a">
+                        <img class="toast-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Camila R." loading="lazy">
+                        <div class="toast-body">
+                            <div class="toast-stars">★★★★</div>
+                            <p>"Os agendamentos triplicaram desde que o site foi ao ar."</p>
+                            <span>Camila R. · Studio Bella</span>
+                        </div>
+                    </div>
+                    <div class="toast toast--b">
+                        <img class="toast-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Felipe M." loading="lazy">
+                        <div class="toast-body">
+                            <div class="toast-stars">★★★★</div>
+                            <p>"Pacientes elogiam o site antes mesmo da consulta."</p>
+                            <span>Dr. Felipe M. · MedCare</span>
+                        </div>
+                    </div>
+                    <div class="toast toast--c">
+                        <img class="toast-avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Rafael S." loading="lazy">
+                        <div class="toast-body">
+                            <div class="toast-stars">★★★★☆</div>
+                            <p>"Fechei 3 clientes novos na primeira semana no ar."</p>
+                            <span>Rafael S. · NovaBarber</span>
+                        </div>
+                    </div>
+
+                    <div class="chip chip--a"><i class="fas fa-arrow-trend-up"></i> +180% em agendamentos online</div>
+                    <div class="chip chip--b"><i class="fas fa-mobile-screen-button"></i> 100% responsivo</div>
+                </div>
+            </div>
+            <div class="hero-ticker">
+    <div class="ticker-track">
+
+        <span>E-COMMERCE</span>
+        <span>•</span>
+        <span>SALÃO DE BELEZA</span>
+        <span>•</span>
+        <span>CLÍNICA MÉDICA</span>
+        <span>•</span>
+        <span>ESTÉTICA</span>
+        <span>•</span>
+        <span>BARBEARIA</span>
+
+        <span>E-COMMERCE</span>
+        <span>•</span>
+        <span>SALÃO DE BELEZA</span>
+        <span>•</span>
+        <span>CLÍNICA MÉDICA</span>
+        <span>•</span>
+        <span>ESTÉTICA</span>
+        <span>•</span>
+        <span>BARBEARIA</span>
+
+    </div>
+</div>
+        </section>
+
+    <section id="vitrine" class="vitrine-section section-reveal">
+
+    <div class="section-header">
+
+        <h2 class="section-title">
+            Nossa <span class="accent">Vitrine</span>
+        </h2>
+
+        <p class="section-desc">
+            Alguns exemplos de layouts premium desenvolvidos para diferentes nichos.
+        </p>
+    </div>
+
+    <div class="vitrine-full reveal">
+        <img src="img/Sites.png" alt="">
+    </div>
+
+</section>
+
+        <section id="problema" class="problem-section section-reveal">
+            <div class="container">
+                <div class="problem-grid">
+                    <div class="problem-copy reveal">
+                        <span class="section-tag"><span class="tag-num"></span><i class="fas fa-triangle-exclamation"></i> Problema</span>
+                        <h2 class="section-title">Um site bonito que <span class="accent">ninguém acha</span> é dinheiro parado</h2>
+                        <p class="section-desc" style="margin:0 0 0;max-width:520px;">Você já deve ter visto isso de perto: paga por um site, ele fica no ar bonitinho, e o telefone não toca. Ou pior, fica preso num template genérico que você não consegue editar sozinho e ninguém te avisa quando algo trava.</p>
+                    </div>
+                    <div class="problem-points reveal" style="--n:1">
+                        <div class="problem-point">
+                            <span class="problem-index">1°</span>
+                            <div>
+                                <h3>Não aparece no Google</h3>
+                                <p>Site lento, sem estrutura pra buscador nenhum achar.</p>
+                            </div>
+                        </div>
+                        <div class="problem-point">
+                            <span class="problem-index">2°</span>
+                            <div>
+                                <h3>Não converte visita em cliente</h3>
+                                <p>Quem chega até acha, mas não sabe pra onde ir nem por que confiar.</p>
+                            </div>
+                        </div>
+                        <div class="problem-point">
+                            <span class="problem-index">3°</span>
+                            <div>
+                                <h3>Você fica refém</h3>
+                                <p>Qualquer troca de texto ou foto vira dor de cabeça e depende de terceiro.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="problem-solution reveal">
+                    <span class="section-tag"><span class="tag-num"></span><i class="fas fa-bullseye"></i> A proposta</span>
+                    <h3>Um site que <span class="accent">trabalha</span> pelo seu negócio, do primeiro clique ao agendamento</h3>
+                    <p>Código próprio (sem WordPress ou builder engessado), rápido em qualquer celular e desenhado com um único objetivo: transformar visita em contato. Você acompanha cada etapa e recebe um site que pode editar e crescer junto com o negócio.</p>
                 </div>
             </div>
         </section>
 
+        <section id="depoimentos">
+             <div class="testimonials-grid">
+                    <div class="testimonial-card reveal" style="--n:4">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fa-regular fa-star"></i></div>
+                        <p>"Aumentei minhas vendas online depois que troquei meu site antigo pelo deles. Recomendo, só senti falta de mais opções de pagamento no início."</p>
+                        <div class="testimonial-author">
+                            <img class="author-avatar" src="https://randomuser.me/api/portraits/women/21.jpg" alt="Marina T." loading="lazy">
+                            <div class="author-info"><strong>Marina Torres</strong><span>Loja Virtual</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal" style="--n:0">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Desde que o site foi ao ar, os agendamentos pelo WhatsApp triplicaram. O visual profissional deu outra credibilidade pro salão."</p>
+                        <div class="testimonial-author">
+                            <img class="author-avatar" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Camila R." loading="lazy">
+                            <div class="author-info"><strong>Camila Ramos</strong><span>Studio Bella · Salão de Beleza</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal" style="--n:1">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Obrigado pelo Bom atendimento. O site ficou rápido, bonito e muito fácil de usar no celular."</p>
+                        <div class="testimonial-author">
+                            <img class="author-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. Felipe M." loading="lazy">
+                            <div class="author-info"><strong>Dr. Felipe M.</strong><span>MedCare · Clínica Médica</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal" style="--n:2">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Recebi alguns comentários de clientes dizendo que gostaram do site. Recomendo demais o trabalho deles."</p>
+                        <div class="testimonial-author">
+                            <img class="author-avatar" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Juliana A." loading="lazy">
+                            <div class="author-info"><strong>Juliana Art.</strong><span>Vitta Estética</span></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card reveal" style="--n:3">
+                        <i class="fas fa-quote-left quote-icon"></i>
+                        <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fa-regular fa-star"></i></div>
+                        <p>"Trabalho rápido, comunicação clara e um resultado muito bom. Fechei 3 clientes novos só na primeira semana com o site no ar. Só demorou um pouco pra ajustar o formulário de contato."</p>
+                        <div class="testimonial-author">
+                            <img class="author-avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Rafael S." loading="lazy">
+                            <div class="author-info"><strong>Rafael Santos</strong><span>NovaBarber · Barbearia</span></div>
+                        </div>
+                    </div>
+                    
+                </div>
+        </section>
+
+       
+
+        <!-- FAQ -->
+<section id="faq" class="faq-section section-reveal">
+    <div class="container">
+
+        <div class="section-header">
+            <span class="section-tag">
+                <i class="fas fa-circle-question"></i> FAQ
+            </span>
+            <h2 class="section-title">
+                Perguntas <span class="accent">Frequentes</span>
+            </h2>
+            <p class="section-desc">
+                Tire as principais dúvidas sobre nossos serviços.
+            </p>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Quanto custa um site?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    O valor depende do tipo de projeto, quantidade de páginas e funcionalidades desejadas.
+                    Após uma conversa rápida para entender seu negócio, enviamos um orçamento personalizado,
+                    sem compromisso e sem custos ocultos.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Em quanto tempo meu site fica pronto?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    O prazo médio é de 24h a 5 dias úteis, dependendo da complexidade do projeto
+                    e da rapidez no envio das informações, como textos, imagens e identidade visual.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>O site funciona em celular e tablet?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Sim. Todos os sites desenvolvidos pela Nivora Web são totalmente responsivos,
+                    oferecendo uma experiência perfeita em celulares, tablets e computadores.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Meu site aparecerá no Google?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Sim. Desenvolvemos o site seguindo boas práticas de SEO, com estrutura otimizada,
+                    carregamento rápido e configurações que facilitam a indexação pelos mecanismos de busca.
+                    O posicionamento depende da concorrência e da estratégia de conteúdo ao longo do tempo.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Vocês fazem landing pages?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Sim. Criamos landing pages focadas em conversão para campanhas de tráfego pago,
+                    lançamentos, captação de leads, vendas e divulgação de serviços.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Depois da entrega vocês oferecem suporte?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Sim. Após a entrega oferecemos suporte para correções, orientações e pequenos ajustes.
+                    Também disponibilizamos planos de manutenção para quem deseja manter o site sempre atualizado.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Vou conseguir editar o site sozinho?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Depende do projeto. Podemos desenvolver uma área administrativa para facilitar alterações
+                    de conteúdo ou realizar as atualizações para você sempre que necessário.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+                <span>Vocês atendem clientes de qualquer lugar?</span>
+                <i class="fas fa-plus faq-icon"></i>
+            </button>
+            <div class="faq-answer">
+                <p>
+                    Sim. Todo o processo acontece de forma online, desde o briefing até a entrega do projeto.
+                    Atendemos clientes em qualquer cidade do Brasil e também no exterior.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+        <!-- VITRINE — showcase ampliado -->
+    
+
         <!-- Sobre Mim -->
-        <section id="sobre-mim" class="aboutme-section">
+        <section id="sobre-mim" class="aboutme-section section-reveal">
             <div class="container">
                 <div class="aboutme-grid">
                     <div class="aboutme-photo-wrap reveal">
@@ -79,171 +402,39 @@
                         <canvas id="radarChart" width="200" height="200" class="radar-canvas"></canvas>
                     </div>
                     <div class="aboutme-content reveal">
-                        <span class="section-tag">Quem faz isso</span>
+                        <span class="section-tag"><span class="tag-num"></span><i class="fas fa-user"></i> CEO e Fundador</span>
                         <h2 class="section-title" style="margin-top:12px">Nicolas <span class="accent">Oliveira</span></h2>
-                        
                         <p class="about-desc">
-                            Cada detalhe é pensado para <strong>aumentar suas vendas</strong>: copy persuasivo, design que guia o olhar e botões que fazem o visitante agir. Simples assim.
+                            Cada detalhe é pensado pra <strong>aumentar suas vendas</strong>: copy persuasivo, design que guia o olhar e botões que fazem o visitante agir. Simples assim.
                         </p>
-                        
                         <div class="about-tags">
                             <span class="about-tag"><i class="fas fa-map-marker-alt"></i> Salvador, BA</span>
                             <span class="about-tag"><i class="fas fa-chart-line"></i> Foco em conversão</span>
                             <span class="about-tag"><i class="fas fa-rocket"></i> NASA Space Apps</span>
                             <span class="about-tag"><i class="fas fa-briefcase"></i> Disponível p/ projetos</span>
                         </div>
-                        <a href="https://wa.me/5571992733599" target="_blank" class="btn btn-primary about-cta">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>Quero meu site de alta conversão</span>
+                        <a href="https://wa.me/5571992733599" target="_blank" class="btn btn-neon about-cta">
+                            <i class="fab fa-whatsapp"></i><span>Quero meu site de alta conversão</span>
                         </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Process -->
-        <section class="process-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Processo</span>
-                    <h2 class="section-title">Como Eu <span class="accent">Trabalho</span></h2>
-                    <p class="section-desc">Do conceito ao deploy, cada etapa feita com atenção aos detalhes</p>
-                </div>
-                <div class="process-grid">
-                    <div class="process-card reveal">
-                        <div class="process-icon"><i class="fas fa-comments"></i></div>
-                        
-                        <h3>Descoberta</h3>
-                        <p>Entendo seu negócio, objetivo e público-alvo para criar a solução ideal</p>
-                    </div>
-                    <div class="process-card reveal">
-                        <div class="process-icon"><i class="fas fa-pencil-ruler"></i></div>
-                        <h3>Planejamento</h3>
-                        <p>Desenho a estrutura, prototipo no Figma e defino as tecnologias</p>
-                    </div>
-                    <div class="process-card reveal">
-                        <div class="process-icon"><i class="fas fa-code"></i></div>
-                        <h3>Desenvolvimento</h3>
-                        <p>Código limpo, versionado com Git e seguindo boas práticas de mercado</p>
-                    </div>
-                    <div class="process-card reveal">
-                        <div class="process-icon"><i class="fas fa-rocket"></i></div>
-                        <h3>Entrega</h3>
-                        <p>Deploy, testes finais e suporte pós-entrega para garantir seu sucesso</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        
-        <!-- Skills -->
-        <section id="habilidades" class="skills-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Expertise</span>
-                    <h2 class="section-title">Habilidades & <span class="accent">Tecnologias</span></h2>
-                    <p class="section-desc">Stack moderna para construir land pages completas e de alta performance</p>
-                </div>
-                <div class="skills-grid">
-                    <div class="skill-category reveal">
-                        <div class="skill-icon-wrap"><i class="fas fa-palette"></i></div>
-                        <h3>Frontend</h3>
-                        <div class="skill-tags">
-                            <span class="tag"><i class="fas fa-object-group"></i>Web Design</span>
-                            <span class="tag"><i class="fab fa-js-square"></i> JavaScript</span>
-                            <span class="tag"><i class="fab fa-angular"></i> Angular</span>
-                            <span class="tag"><i class="fab fa-html5"></i> HTML5</span>
-                            <span class="tag"><i class="fab fa-css3-alt"></i> CSS3</span>
-                            <span class="tag"><i class="fab fa-figma"></i> Figma</span>
-                            <span class="tag"><i class="fab fa-figma"></i>Ux Design</span>
-                        </div>
-                    </div>
-                    <div class="skill-category reveal">
-                        <div class="skill-icon-wrap"><i class="fas fa-server"></i></div>
-                        <h3>Backend</h3>
-                        <div class="skill-tags">
-                            <span class="tag"><i class="fab fa-node-js"></i> Node.js</span>
-                            <span class="tag"><i class="fas fa-hashtag"></i> C#</span>
-                            <span class="tag"><i class="fab fa-python"></i> Python</span>
-                            <span class="tag"><i class="fas fa-plug"></i> REST API</span>
-                        </div>
-                    </div>
-                    <div class="skill-category reveal">
-                        <div class="skill-icon-wrap"><i class="fas fa-database"></i></div>
-                        <h3>Database & Tools</h3>
-                        <div class="skill-tags">
-                            <span class="tag"><i class="fas fa-database"></i> SQL</span>
-                            <span class="tag"><i class="fab fa-git-alt"></i> Git</span>
-                            <span class="tag"><i class="fas fa-prisma"></i> Prisma</span>
-                            <span class="tag"><i class="fas fa-operacional"></i> Sistema Operacionais</span>
-                            <span class="tag"><i class="fas fa-terminal"></i> CLI</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projetos" class="projects-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Portfólio</span>
-                    <h2 class="section-title">Meus <span class="accent">Projetos</span></h2>
-                    <p class="section-desc">Cada projeto é uma história de problema resolvido e valor entregue</p>
-                </div>
-                <div id="lista-projetos" class="projects-grid"></div>
-            </div>
-        </section>
-
-        <!-- Certificates -->
-        <section id="certificados" class="certificates-section">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Formação</span>
-                    <h2 class="section-title">Certificações & <span class="accent">Conquistas</span></h2>
-                    <p class="section-desc">Aprendizado contínuo e reconhecimento de competências</p>
-                </div>
-                <div class="carousel-container reveal">
-                    <button id="btn-anterior-certificado" class="carousel-btn prev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
-                    <div class="carousel-wrapper">
-                        <div id="lista-certificados" class="carousel-track">
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificado1.jpg" alt="HTML / CSS / JS"><p>HTML / CSS / JS</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificado2.jpg" alt="C# .NET / LOGICA / GIT"><p>C# .NET / LOGICA / GIT</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificado3.jpg" alt="JavaScript Anima"><p>JavaScript Anima</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificado4.jpg" alt="NASA Space Apps"><p>NASA Space Apps</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoGit.jpg" alt="GIT Versionamento"><p>GIT Versionamento</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoJs.jpg" alt="JavaScript"><p>Lógica JavaScript</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoObjetos.jpg" alt="POO C#"><p>POO C#</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoComputaçãoSolucoes.jpg" alt="Computacao"><p>Computação Solucionais</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoModelagem.jpg" alt="Modelagem"><p>Modelagem de Software</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoWeb.jpg" alt="Dev Web"><p>Desenvolvimento Web</p></div></div>
-                            <div class="cert-item"><div class="cert-card"><img src="img/certificados/certificadoDados.jpg" alt="Estrutura"><p>Estrutura de Dados</p></div></div>
-                        </div>
-                    </div>
-                    <button id="btn-proximo-certificado" class="carousel-btn next" aria-label="Próximo"><i class="fas fa-chevron-right"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta-section reveal">
+        <section class="cta-section section-reveal">
             <div class="container">
                 <div class="cta-card">
-                    <div class="cta-glow"></div>
+                    <div class="cta-noise"></div>
                     <div class="cta-content">
+                        <span class="eyebrow eyebrow--light"><span class="eyebrow-dot"></span>últimas vagas do mês - Promoção para empreendedores</span>
                         <h2>Pronto para vender mais?</h2>
                         <p>Entre em contato agora e receba um orçamento personalizado para o seu negócio.</p>
                         <div class="cta-buttons">
-                            <a href="https://wa.me/5571992733599" class="btn btn-primary btn-lg" target="_blank">
+                            <a href="https://wa.me/5571992733599" class="btn btn-neon btn-lg" target="_blank">
                                 <i class="fab fa-whatsapp"></i><span>Fale comigo no WhatsApp</span>
                             </a>
-                            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ffnicolaf13@gmail.com" target="_blank" class="btn btn-primary btn-lg">
-                                <i class="fas fa-envelope"></i><span>Enviar Email</span>
-                            </a>
-                            <a href="https://www.linkedin.com/in/nicolas-oliveira-8b12a02b5/" target="_blank" class="btn btn-secondary btn-lg">
-                                <i class="fab fa-linkedin"></i><span>LinkedIn</span>
-                            </a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -255,41 +446,33 @@
             <div class="footer-top">
                 <div class="footer-brand">
                     <div class="logo-area">
-                        <div class="logo-circle-sm">N</div>
-                        <span class="logo-text-sm">Nicolas<span class="accent">.</span></span>
+                        <div class="logo-mark logo-mark-sm"><img src="/img/logo/Nivora.png" alt=""></div>
+                        <span class="logo-text">Nivora Web<span class="accent-dot">.</span></span>
                     </div>
-                    <p>Desenvolvedor web especialista em Web Design, Pages e land pages que geram resultados reais para o seu negócio.</p>
+                    <p>Startup especialista em Web Design, páginas e landing pages que geram resultados reais para o seu negócio.</p>
                 </div>
                 <div class="footer-links">
                     <h4>Navegação</h4>
-                    <a href="#sobre">Início</a>
+                    <a href="#topo">Início</a>
                     <a href="#sobre-mim">Sobre</a>
-                    <a href="#projetos">Projetos</a>
-                    <a href="#habilidades">Habilidades</a>
-                    <a href="#certificados">Certificados</a>
+                    <a href="#depoimentos">Depoimentos</a>
                 </div>
                 <div class="footer-contact">
                     <h4>Contato</h4>
-                    <a href="mailto:ffnicolaf13@gmail.com"><i class="fas fa-envelope"></i> ffnicolaf13@gmail.com</a>
+                    <a href="programcode2025@gmail.com"><i class="fas fa-envelope">programcode2025@gmail.com</i></a>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/in/nicolas-oliveira-8b12a02b5/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/nicoladeveloper" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="mailto:ffnicolaf13@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
-                        <a href="https://www.instagram.com/nicolasdeveper/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="https://wa.me/5571992733599" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Nicolas Oliveira. Desenvolvido com <span class="heart">&#9829;</span></p>
+                <p>&copy; 2026 Nivora Web. Desenvolvido com <span class="heart">&#9829;</span></p>
             </div>
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+    <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo"><i class="fas fa-arrow-up"></i></button>
 
-
-    <script src="js/fundo.js"></script>
-    <script src="js/script.js"></script>    
+    <script src="js/script.js"></script>
 </body>
 </html>

@@ -1,90 +1,94 @@
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-let particles = [];
- 
-function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
- 
-class Particle {
-    constructor() { this.reset(); }
-    reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 1.5 + 0.5;
-        this.speedX = (Math.random() - 0.5) * 0.3;
-        this.speedY = (Math.random() - 0.5) * 0.3;
-        this.opacity = Math.random() * 0.4 + 0.1;
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ==================== VITRINE GLOW (fundo ambiente) ====================
+const glowCanvas = document.getElementById('glow');
+if (glowCanvas && !prefersReducedMotion) {
+    const gctx = glowCanvas.getContext('2d');
+    let orbs = [];
+    const colors = ['255,61,129', '34,230,197', '255,178,56', '167,139,250'];
+
+    function resizeGlow() {
+        glowCanvas.width = window.innerWidth;
+        glowCanvas.height = Math.min(window.innerHeight * 2.2, document.body.scrollHeight);
     }
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+    resizeGlow();
+    window.addEventListener('resize', resizeGlow);
+
+    for (let i = 0; i < 5; i++) {
+        orbs.push({
+            x: Math.random() * glowCanvas.width,
+            y: Math.random() * glowCanvas.height,
+            r: 220 + Math.random() * 180,
+            color: colors[i % colors.length],
+            speed: 0.06 + Math.random() * 0.08,
+            angle: Math.random() * Math.PI * 2
+        });
     }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(245, 166, 35, ${this.opacity})`;
-        ctx.fill();
+
+    function drawGlow() {
+        gctx.clearRect(0, 0, glowCanvas.width, glowCanvas.height);
+        orbs.forEach(o => {
+            o.angle += o.speed * 0.01;
+            o.x += Math.cos(o.angle) * 0.15;
+            o.y += Math.sin(o.angle) * 0.15;
+            const grad = gctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r);
+            grad.addColorStop(0, `rgba(${o.color}, 0.06)`);
+            grad.addColorStop(1, `rgba(${o.color}, 0)`);
+            gctx.fillStyle = grad;
+            gctx.fillRect(0, 0, glowCanvas.width, glowCanvas.height);
+        });
+        requestAnimationFrame(drawGlow);
     }
-}
- 
-for (let i = 0; i < 40; i++) particles.push(new Particle());
- 
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-            const dx = particles[i].x - particles[j].x;
-            const dy = particles[i].y - particles[j].y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            if (dist < 100) {
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.strokeStyle = `rgba(245, 166, 35, ${0.03 * (1 - dist / 100)})`;
-                ctx.lineWidth = 0.5;
-                ctx.stroke();
-            }
-        }
-    }
-    requestAnimationFrame(animateParticles);
+    drawGlow();
 }
 
- 
- 
-// ===== HEADER SCROLL =====
+// ==================== HEADER SCROLL ====================
 const header = document.getElementById('header');
 const backToTop = document.getElementById('backToTop');
- 
+
 window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    header.classList.toggle('scrolled', scrollY > 50);
+    header.classList.toggle('scrolled', scrollY > 40);
     backToTop.classList.toggle('show', scrollY > 500);
-});
- 
+}, { passive: true });
+
 if (backToTop) backToTop.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
 });
- 
-// ===== SCROLL REVEAL =====
-const revealElements = document.querySelectorAll('.reveal');
+
+// ==================== HERO KINETIC HEADLINE ====================
+window.addEventListener('DOMContentLoaded', () => {
+    const heroTitle = document.querySelector('.hero-title');
+    requestAnimationFrame(() => {
+        setTimeout(() => heroTitle && heroTitle.classList.add('is-lit'), 150);
+    });
+});
+
+// ==================== SCROLL REVEAL ====================
 const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('is-visible');
             revealObserver.unobserve(entry.target);
         }
     });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
- 
-revealElements.forEach(el => revealObserver.observe(el));
- 
-// ===== NUMBER COUNTER =====
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// ==================== SECTION-LEVEL REVEAL (título + fundo) ====================
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            sectionObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.section-reveal').forEach(el => sectionObserver.observe(el));
+
+// ==================== NUMBER COUNTER ====================
 const statNums = document.querySelectorAll('.stat-number');
 const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -101,23 +105,24 @@ const counterObserver = new IntersectionObserver((entries) => {
                 } else {
                     target.textContent = Math.floor(current);
                 }
-            }, 40);
+            }, 35);
             counterObserver.unobserve(target);
         }
     });
 }, { threshold: 0.5 });
- 
+
 statNums.forEach(el => counterObserver.observe(el));
 
+// ==================== PROJETOS ====================
 const projetos = [
-     {
+    {
         nome: "MaxTenis",
-        descricao: "Plataforma de E-commerce moderna e responsiva para a venda de tênis premium com animações avançadas e experiência de usuário excepcional..",
+        descricao: "Plataforma de E-commerce moderna e responsiva para a venda de tênis premium com animações avançadas e experiência de usuário excepcional.",
         linkDemo: "https://github.com/nicoladeveloper/DataShow/blob/main/README.md",
         linkRepo: "https://github.com/nicoladeveloper/DataShow/blob/main/README.md",
         video: "video/datashow.mp4",
         imagem: "img/projetos/maxtenis.jpg",
-        tags: ["html", "css", "JavaScript"]
+        tags: ["HTML", "CSS", "JavaScript"]
     },
     {
         nome: "NovaBarber",
@@ -126,21 +131,20 @@ const projetos = [
         linkRepo: "https://github.com/nicoladeveloper/Natural-Disaster-Watch",
         video: "video/disaster.mp4",
         imagem: "img/projetos/novabarber.jpg",
-        tags: ["Angular", "html", "Css ", "JavaScript"                  ]
+        tags: ["Angular", "HTML", "CSS", "JavaScript"]
     },
     {
-        nome: "C6BANK", 
-        descricao: "Uma landing page moderna e interativa do C6 Bank com efeitos 3D avançados e animações fluidas. Showcase completo de serviços bancários: contas, cartões, investimentos e experiências..",
+        nome: "C6BANK",
+        descricao: "Landing page moderna e interativa do C6 Bank com efeitos 3D avançados e animações fluidas. Showcase completo de serviços bancários: contas, cartões, investimentos e experiências.",
         linkDemo: "https://www.linkedin.com/feed/update/urn:li:activity:7374461185842384897/",
         linkRepo: "https://github.com/nicoladeveloper/C6BANK/blob/main/index.html",
         video: "video/kimetsu.mp4",
         imagem: "img/projetos/C6Bank.jpg",
         tags: ["JavaScript", "CSS", "HTML"]
     },
-   
     {
         nome: "AllGames",
-        descricao: "Interface visual e interativa sobre diferentes consoles com design atrativo e navegacao funcional.",
+        descricao: "Interface visual e interativa sobre diferentes consoles com design atrativo e navegação funcional.",
         linkDemo: "https://www.linkedin.com/feed/update/urn:li:activity:7359367075640786946/",
         linkRepo: "https://github.com/nicoladeveloper/AllGames/blob/main/README.md",
         video: "video/allgames.mp4",
@@ -149,7 +153,7 @@ const projetos = [
     },
     {
         nome: "SQL Search",
-        descricao: "Consultas avancadas em banco de dados SQL Server retornando diferentes tipos de informacao.",
+        descricao: "Consultas avançadas em banco de dados SQL Server retornando diferentes tipos de informação.",
         linkDemo: "https://www.linkedin.com/feed/update/urn:li:activity:7366233123585454080/",
         linkRepo: "https://github.com/nicoladeveloper/Filmes-SQL-server",
         video: "video/sql.mp4",
@@ -158,7 +162,7 @@ const projetos = [
     },
     {
         nome: "Hosting System",
-        descricao: "Sistema de hospedagem em C# .NET para reservas de hotel com calculo de desconto automatico.",
+        descricao: "Sistema de hospedagem em C# .NET para reservas de hotel com cálculo de desconto automático.",
         linkDemo: "https://www.linkedin.com/feed/update/urn:li:activity:7365168540716335104/",
         linkRepo: "https://github.com/nicoladeveloper/Sistema-de-Hopedagem",
         video: "video/hosting.mp4",
@@ -166,21 +170,21 @@ const projetos = [
         tags: ["C#", ".NET", "OOP"]
     }
 ];
- 
-// ==================== RENDERIZAR PROJETOS ====================
+
 function renderizarProjetos() {
     const container = document.getElementById('lista-projetos');
     if (!container) return;
     container.innerHTML = '';
- 
-    projetos.forEach(projeto => {
+
+    projetos.forEach((projeto, i) => {
         const card = document.createElement('div');
         card.className = 'card-projeto reveal';
- 
+        card.style.setProperty('--n', i % 3);
+
         const tagsHtml = (projeto.tags || []).map(t =>
-            `<span style="font-size:0.7rem;padding:3px 8px;background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.12);border-radius:20px;color:#f5a623;font-weight:500;">${t}</span>`
+            `<span style="font-size:0.7rem;padding:3px 10px;background:rgba(34,230,197,0.08);border:1px solid rgba(34,230,197,0.2);border-radius:20px;color:#22e6c5;font-weight:500;">${t}</span>`
         ).join('');
- 
+
         card.innerHTML = `
             <div class="projeto-media">
                 <video preload="none" muted loop playsInline
@@ -190,7 +194,7 @@ function renderizarProjetos() {
                 </video>
             </div>
             <div class="card-projeto-content">
-                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;">${tagsHtml}</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;">${tagsHtml}</div>
                 <h3>${projeto.nome}</h3>
                 <p>${projeto.descricao}</p>
                 <div class="links-projeto">
@@ -199,17 +203,14 @@ function renderizarProjetos() {
                 </div>
             </div>
         `;
- 
+
         container.appendChild(card);
     });
- 
-    // Re-observe for scroll reveal
+
     document.querySelectorAll('.card-projeto.reveal').forEach(el => revealObserver.observe(el));
 }
- 
 
- 
-// ==================== CAROUSEL ====================
+// ==================== CAROUSEL DE CERTIFICADOS ====================
 class CertificateCarousel {
     constructor() {
         this.wrapper = document.querySelector('.carousel-wrapper');
@@ -221,7 +222,7 @@ class CertificateCarousel {
         if (this.wrapper) this.init();
     }
     init() {
-        this.wrapper.addEventListener('mousedown', e => { this.isDragging = true; this.startX = e.pageX - this.wrapper.offsetLeft; this.scrollLeft = this.wrapper.scrollLeft; }, { passive: false });
+        this.wrapper.addEventListener('mousedown', e => { this.isDragging = true; this.startX = e.pageX - this.wrapper.offsetLeft; this.scrollLeft = this.wrapper.scrollLeft; });
         this.wrapper.addEventListener('mouseleave', () => { this.isDragging = false; });
         this.wrapper.addEventListener('mouseup', () => { this.isDragging = false; });
         this.wrapper.addEventListener('mousemove', e => { if (!this.isDragging) return; const x = e.pageX - this.wrapper.offsetLeft; this.wrapper.scrollLeft = this.scrollLeft - (x - this.startX) * 2; }, { passive: true });
@@ -232,20 +233,20 @@ class CertificateCarousel {
         this.btnNext?.addEventListener('click', () => this.wrapper.scrollBy({ left: 350, behavior: 'smooth' }));
     }
 }
- 
-// ==================== MENU HAMBURGER ====================
+
+// ==================== MENU HAMBÚRGUER ====================
 function setupMenuHamburguer() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
     if (!hamburger || !navMenu) return;
- 
+
     hamburger.addEventListener('click', () => {
         const isOpen = navMenu.classList.toggle('aberto');
         hamburger.classList.toggle('aberto', isOpen);
         hamburger.setAttribute('aria-expanded', isOpen);
         document.body.style.overflow = isOpen ? 'hidden' : '';
     });
- 
+
     navMenu.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             navMenu.classList.remove('aberto');
@@ -255,30 +256,44 @@ function setupMenuHamburguer() {
         });
     });
 }
- 
+
 // ==================== SMOOTH SCROLL ====================
 function setupSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href === '#') return;
-            e.preventDefault();
             const target = document.querySelector(href);
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+            }
         });
     });
 }
- 
-// ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', () => {
-    renderizarProjetos();
-    setupMenuHamburguer();
-    setupSmoothScroll();
-    new CertificateCarousel();
-    animateParticles();
-});
- 
-window.addEventListener('scroll', () => {}, { passive: true });
+
+// ==================== PARALLAX DO DECK NO HERO ====================
+function setupHeroParallax() {
+    const stage = document.getElementById('heroStage');
+    if (!stage || prefersReducedMotion) return;
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    if (isTouch) return;
+
+    let raf = null;
+    stage.addEventListener('mousemove', (e) => {
+        const rect = stage.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+            stage.style.transform = `rotateY(${relX * 6}deg) rotateX(${-relY * 6}deg)`;
+        });
+    });
+    stage.addEventListener('mouseleave', () => {
+        stage.style.transform = '';
+    });
+}
+
 // ==================== RADAR CHART ====================
 function drawRadarChart() {
     const canvas = document.getElementById('radarChart');
@@ -303,41 +318,41 @@ function drawRadarChart() {
     function animate() {
         progress = Math.min(progress + 0.04, 1);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        [0.25,0.5,0.75,1].forEach(frac => {
+        [0.25, 0.5, 0.75, 1].forEach(frac => {
             ctx.beginPath();
             for (let i = 0; i < total; i++) {
                 const p = getPoint(i, radius * frac);
-                i === 0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y);
+                i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
             }
             ctx.closePath();
-            ctx.strokeStyle='rgba(79,70,229,0.18)'; ctx.lineWidth=1; ctx.stroke();
+            ctx.strokeStyle = 'rgba(255,61,129,0.16)'; ctx.lineWidth = 1; ctx.stroke();
         });
-        for (let i=0; i<total; i++) {
-            const p = getPoint(i,radius);
-            ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(p.x,p.y);
-            ctx.strokeStyle='rgba(79,70,229,0.15)'; ctx.lineWidth=1; ctx.stroke();
+        for (let i = 0; i < total; i++) {
+            const p = getPoint(i, radius);
+            ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(p.x, p.y);
+            ctx.strokeStyle = 'rgba(255,61,129,0.12)'; ctx.lineWidth = 1; ctx.stroke();
         }
         ctx.beginPath();
-        for (let i=0; i<total; i++) {
+        for (let i = 0; i < total; i++) {
             const p = getPoint(i, radius * skills[i].value * progress);
-            i===0 ? ctx.moveTo(p.x,p.y) : ctx.lineTo(p.x,p.y);
+            i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
         }
         ctx.closePath();
-        const grad = ctx.createRadialGradient(cx,cy,0,cx,cy,radius);
-        grad.addColorStop(0,'rgba(99,102,241,0.5)'); grad.addColorStop(1,'rgba(79,70,229,0.15)');
-        ctx.fillStyle=grad; ctx.fill();
-        ctx.strokeStyle='#6366f1'; ctx.lineWidth=2; ctx.stroke();
-        for (let i=0; i<total; i++) {
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius);
+        grad.addColorStop(0, 'rgba(34,230,197,0.45)'); grad.addColorStop(1, 'rgba(255,61,129,0.12)');
+        ctx.fillStyle = grad; ctx.fill();
+        ctx.strokeStyle = '#22e6c5'; ctx.lineWidth = 2; ctx.stroke();
+        for (let i = 0; i < total; i++) {
             const p = getPoint(i, radius * skills[i].value * progress);
-            ctx.beginPath(); ctx.arc(p.x,p.y,4,0,Math.PI*2);
-            ctx.fillStyle='#818cf8'; ctx.fill();
-            ctx.strokeStyle='#fff'; ctx.lineWidth=1.5; ctx.stroke();
+            ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#ff3d81'; ctx.fill();
+            ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
         }
-        ctx.font='600 9px Inter,sans-serif';
-        ctx.fillStyle='rgba(148,163,184,0.9)';  
-        ctx.textAlign='center'; ctx.textBaseline='middle';
-        for (let i=0; i<total; i++) {
-            const lp = getPoint(i, radius+18);
+        ctx.font = '600 9px Inter,sans-serif';
+        ctx.fillStyle = 'rgba(167,154,174,0.9)';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        for (let i = 0; i < total; i++) {
+            const lp = getPoint(i, radius + 18);
             ctx.fillText(skills[i].label, lp.x, lp.y);
         }
         if (progress < 1) requestAnimationFrame(animate);
@@ -354,3 +369,43 @@ if (aboutSection) {
     }, { threshold: 0.3 });
     aboutObserver.observe(aboutSection);
 }
+
+// ==================== FAQ ====================
+function setupFAQ() {
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+
+        question.addEventListener('click', () => {
+
+            // Fecha os outros itens
+            faqItems.forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('is-open');
+                    other.querySelector('.faq-question')
+                        .setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Abre/fecha o clicado
+            item.classList.toggle('is-open');
+
+            question.setAttribute(
+                'aria-expanded',
+                item.classList.contains('is-open')
+            );
+        });
+    });
+}
+
+// ==================== INIT ====================
+document.addEventListener('DOMContentLoaded', () => {
+    renderizarProjetos();
+    setupMenuHamburguer();
+    setupSmoothScroll();
+    setupHeroParallax();
+    new CertificateCarousel();
+
+    setupFAQ(); // <-- ADICIONE ESTA LINHA
+});
