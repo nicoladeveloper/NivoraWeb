@@ -515,10 +515,6 @@ header.scrolled {
     margin-bottom: 40px;
 }
 
-.hero-cta .whats{
-    color:#1d5a35;
-}
-
 .btn {
     display: inline-flex;
     align-items: center;
@@ -533,7 +529,7 @@ header.scrolled {
 
 .btn-neon {
     background: var(--pink);
-    color: #14471f;
+    color: #000000;
     box-shadow: 0 10px 30px -10px rgba(198, 255, 77, .65), inset 0 1px 0 rgba(255, 255, 255, .2);
 }
 
