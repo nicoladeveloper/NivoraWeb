@@ -528,7 +528,7 @@ header.scrolled {
 }
 
 .btn-neon {
-    background: var(--pink);
+    background: white;
     color: #000000;
     box-shadow: 0 10px 30px -10px rgba(198, 255, 77, .65), inset 0 1px 0 rgba(255, 255, 255, .2);
 }
